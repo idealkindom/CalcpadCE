@@ -2652,16 +2652,16 @@ Structural functions are related only to the matrix structure. Unlike data and m
     *Notes*: Copying the elements from *A* to *B* modifies the matrix *B* in place. The existing elements in *B* are replaced by the respective elements from *A*. A reference to *B* is returned as result.  
     *Example*: *A* = \[1; 2; 3\|4; 5; 6\]  
 *B* = **mfill**(**matrix**(3; 4); -1)' = $`\begin{bmatrix}
- - 1 & - 1 & - 1 & - 1 \\
- - 1 & - 1 & - 1 & - 1 \\
- - 1 & - 1 & - 1 & - 1
+ -1 & -1 & -1 & -1 \\
+ -1 & -1 & -1 & -1 \\
+ -1 & -1 & -1 & -1
 \end{bmatrix}`$  
 **copy**(*A*; *B*; 1; 1)  
 **copy**(*A*; *B*; 2; 2)  
 *B*' = $`\begin{bmatrix}
-1 & 2 & 3 & - 1 \\
+1 & 2 & 3 & -1 \\
 4 & 1 & 2 & 3 \\
- - 1 & 4 & 5 & 6
+ -1 & 4 & 5 & 6
 \end{bmatrix}`$
 
   **add**(*A*; *B*; *i*; *j*)
@@ -2674,16 +2674,16 @@ Structural functions are related only to the matrix structure. Unlike data and m
     *Notes*:    Adding the elements from *A* to *B* modifies the matrix *B* in place. A reference to *B* is returned as result.  
     *Example*: *A* = \[1; 2; 3\|4; 5; 6\]  
 *B* = **mfill**(**matrix**(3; 4); -1)' = $`\begin{bmatrix}
- - 1 & - 1 & - 1 & - 1 \\
- - 1 & - 1 & - 1 & - 1 \\
- - 1 & - 1 & - 1 & - 1
+ -1 & -1 & -1 & -1 \\
+ -1 & -1 & -1 & -1 \\
+ -1 & -1 & -1 & -1
 \end{bmatrix}`$  
 **add**(*A*; *B*; 1; 1)  
 **add**(*A*; *B*; 2; 2)  
 *B*' = $`\begin{bmatrix}
-0 & 1 & 2 & - 1 \\
+0 & 1 & 2 & -1 \\
 3 & 5 & 7 & 2 \\
- - 1 & 3 & 4 & 5
+ -1 & 3 & 4 & 5
 \end{bmatrix}`$
 
   **row**(*M*; *i*)
@@ -3254,13 +3254,13 @@ Since this is computationally expensive, the other functions can be used instead
 3 & 4
 \end{bmatrix}`$  
 **adj**(*A*)' = $`\begin{bmatrix}
- - 4 & 2 \\
-3 & - 1
+ -4 & 2 \\
+3 & -1
 \end{bmatrix}`$  
 **det**(*A*)' = 2  
 **inverse**(*A*)' = $`\begin{bmatrix}
- - 2 & 1 \\
-1.5 & - 0.5
+ -2 & 1 \\
+1.5 & -0.5
 \end{bmatrix}`$
 
   **cofactor**(*A*)
@@ -3270,8 +3270,8 @@ Since this is computationally expensive, the other functions can be used instead
     *Notes*: The cofactor *C*ij is defined as the respective minor *M*ij is multiplied by  
 (-1) *i* + *j*. The minor *M*ij represents the determinant of the submatrix, obtained by removing the *i*-th row and the *j*-th column. In Calcpad, the cofactor matrix is calculated by transposing the adjugate: *C* = **adj**(*A* )T  
     *Example*:   **cofactor**(\[1; 2\|3; 4\])' = $`\begin{bmatrix}
- - 4 & \ \ \ 3 \\
-\ \ \ \ 2 & - 1
+ -4 & \ \ \ 3 \\
+\ \ \ \ 2 & -1
 \end{bmatrix}`$
 
   **eigenvals**(*M*; *n*<sub>e</sub>)
@@ -3289,9 +3289,9 @@ is \> 200 calculations are performed by using iterative symmetric Lanczos solver
     12; 37; -43\| \_  
    -16; -43; 98\]; \_  
     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 **eigenvals**(*A*)' = \[0.0188 15.5 123.48\]
 
@@ -3306,14 +3306,14 @@ is \> 200 calculations are performed by using iterative symmetric Lanczos solver
     12; 37; -43\| \_  
    -16; -43; 98\]; \_  
     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 **eigenvecs**(*A*)' = $`\begin{bmatrix}
-0.9634 & - 0.2648 & 0.0411 \\
- - 0.2127 & - 0.849 & - 0.4838 \\
- - 0.163 & - 0.4573 & 0.8742
+0.9634 & -0.2648 & 0.0411 \\
+ -0.2127 & -0.849 & -0.4838 \\
+ -0.163 & -0.4573 & 0.8742
 \end{bmatrix}`$
 
   **eigen**(*M*; *n*<sub>e</sub>)
@@ -3328,14 +3328,14 @@ is \> 200 calculations are performed by using iterative symmetric Lanczos solver
     12; 37; -43\| \_  
    -16; -43; 98\]; \_  
     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 **eigen**(*A*)' = $`\begin{bmatrix}
-0.0188 & 0.9634 & - 0.2648 & 0.0411 \\
-15.504 & - 0.2127 & - 0.849 & - 0.4838 \\
-123.477 & - 0.163 & - 0.4573 & 0.8742
+0.0188 & 0.9634 & -0.2648 & 0.0411 \\
+15.504 & -0.2127 & -0.849 & -0.4838 \\
+123.477 & -0.163 & -0.4573 & 0.8742
 \end{bmatrix}`$
 
   **cholesky**(*M*)
@@ -3348,24 +3348,24 @@ is \> 200 calculations are performed by using iterative symmetric Lanczos solver
     12; 37; -43\| \_  
    -16; -43; 98\]; \_  
     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 *LT* = **cholesky**(*A*)' = $`\begin{bmatrix}
-2 & 6 & - 8 \\
+2 & 6 & -8 \\
 0 & 1 & 5 \\
 0 & 0 & 3
 \end{bmatrix}`$ - the upper triangular matrix *L*T  
 *L* = **transp**(*LT*)' = $`\begin{bmatrix}
 2 & 0 & 0 \\
 6 & 1 & 0 \\
- - 8 & 5 & 3
+ -8 & 5 & 3
 \end{bmatrix}`$ - the lower triangular matrix *L*  
 *L*\**LT*' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$ - check
 
   **lu**(*M*)
@@ -3377,14 +3377,14 @@ If you need both matrices *L* and *U* separately, you can extract them as a Hada
 If the type of *M* is symmetric matrix, the LDLT decomposition is returned instead of LU. It is similar to Cholesky decomposition but avoids taking square roots of diagonal elements. For that reason, the matrix is not required to be positive-definite. However, it makes it necessary to store the diagonal elements in a separate diagonal matrix *D*. Therefore, matrix *M* is represented as a product of three matrices:  
 *M* = *L*·*D*·*L*T. They are also packed in a single square matrix.  
     *Example*: *A* = \[4; 12; -16\|12; 37; -43\|-16; -43; 98\]' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 *LU* = **lu**(*A*)' = $`\begin{bmatrix}
-12 & 37 & - 43 \\
- - 1.333 & 6.333 & 40.667 \\
-0.3333 & - 0.05263 & 0.4737
+12 & 37 & -43 \\
+ -1.333 & 6.333 & 40.667 \\
+0.3333 & -0.05263 & 0.4737
 \end{bmatrix}`$ - the combined matrix  
 *ind*' = \[2 3 1\]  
 *D* = **not**(**identity**(3))' = $`\begin{bmatrix}
@@ -3395,19 +3395,19 @@ If the type of *M* is symmetric matrix, the LDLT decomposition is returned inste
 *L* = **hprod**(**mfill**(**ltriang**(3); 1); *LU*)^*D*' =  
 $`\begin{bmatrix}
 1 & 0 & 0 \\
- - 1.333 & 1 & 0 \\
-0.3333 & - 0.05263 & 1
+ -1.333 & 1 & 0 \\
+0.3333 & -0.05263 & 1
 \end{bmatrix}`$ - extracts the lower triangular matrix  
 *U* = **hprod**(**mfill**(**utriang**(3); 1); *LU*)' =  
 $`\begin{bmatrix}
-12 & 37 & - 43 \\
+12 & 37 & -43 \\
 0 & 6.333 & 40.667 \\
 0 & 0 & 0.4737
 \end{bmatrix}`$ - extracts the upper triangular matrix  
 **extract_rows**(*L*\**U*; **order**(*ind*))' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$- check
 
   **qr**(*M*)
@@ -3416,32 +3416,32 @@ $`\begin{bmatrix}
     *Return value*: (matrix) the QR decomposition of matrix *M*.  
     *Notes*: As the name implies, the matrix is factored as a product (*M* = *Q*·*R* ) of an orthonormal matrix *Q* and upper triangular matrix *R*. The Householder's method is used for that purpose. The algorithm is stable and does not need pivoting. Both matrices are packed in a single n×2n block rectangular matrix \[Q,R\] and returned as a result. You can each of the two matrices using the **submatrix** function.  
     *Example*: *A* = \[4; 12; -16\|12; 37; -43\|-16; -43; 98\]' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 *QR* = **qr**(*A*)' =  
 $`\begin{bmatrix}
- - 0.1961 & - 0.1695 & 0.9658 & - 20.396 & - 57.854 & 105.314 \\
- - 0.5884 & - 0.7676 & - 0.2542 & 0 & - 3.858 & - 24.853 \\
-0.7845 & - 0.6181 & 0.05083 & 0 & 0 & 0.4575
+ -0.1961 & -0.1695 & 0.9658 & -20.396 & -57.854 & 105.314 \\
+ -0.5884 & -0.7676 & -0.2542 & 0 & -3.858 & -24.853 \\
+0.7845 & -0.6181 & 0.05083 & 0 & 0 & 0.4575
 \end{bmatrix}`$ - the combined QR matrix  
 *Q* = **submatrix**(*QR*; 1; 3; 1; 3)' =  
 $`\begin{bmatrix}
- - 0.1961 & - 0.1695 & 0.9658 \\
- - 0.5884 & - 0.7676 & - 0.2542 \\
-0.7845 & - 0.6181 & 0.05083
+ -0.1961 & -0.1695 & 0.9658 \\
+ -0.5884 & -0.7676 & -0.2542 \\
+0.7845 & -0.6181 & 0.05083
 \end{bmatrix}`$ - extracts the Q matrix  
 *R* = **submatrix**(*QR*; 1; 3; 4; 6)' =  
 $`\begin{bmatrix}
- - 20.396 & - 57.854 & 105.314 \\
-0 & - 3.858 & - 24.853 \\
+ -20.396 & -57.854 & 105.314 \\
+0 & -3.858 & -24.853 \\
 0 & 0 & 0.4575
 \end{bmatrix}`$ - extracts the R matrix  
 *Q*\**R*' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$- check
 
   **svd**(*M*)
@@ -3451,27 +3451,27 @@ $`\begin{bmatrix}
     *Notes*: The matrix is factored as a product of three matrices: *M* = *U*·*Σ*·*V* T, where *Σ* is a diagonal matrix containing the singular values of *M*, and *U* and *V* T are orthonormal matrices which columns represent the left and right singular vectors, respectively. The result is returned as a single m×(2n + 1) matrix \[U, Σ, V\], where Σ is a single column containing all singular values. They are sorted in descending order and the singular vectors are reordered respectively to match the corresponding singular values. Note that the returned *V* T matrix is already transposed, so you do not have to do it again.  
 Occasionally, some singular vectors may flip signs so that *U*·*Σ*·*V* T will not give *M* after multiplying the obtained matrices. Sign ambiguity is a well- known and common problem of most SVD algorithms. For symmetric matrices the singular values are equal to the absolute eigenvalues: *σ*i = \| *λ*i \|.  
     *Example*: *A* = \[4; 12; -16\|12; 37; -43\|-16; -43; 98\]' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 *SVD* = **svd**(*A*)' =  
 $`\begin{bmatrix}
- - 0.163 & 0.2127 & - 0.9634 & 123.477 & - 0.163 & - 0.4573 & 0.8742 \\
- - 0.4573 & 0.849 & 0.2648 & 15.504 & 0.2127 & 0.849 & 0.4838 \\
-0.8742 & 0.4838 & - 0.0411 & 0.0188 & - 0.9634 & 0.2648 & - 0.0411
+ -0.163 & 0.2127 & -0.9634 & 123.477 & -0.163 & -0.4573 & 0.8742 \\
+ -0.4573 & 0.849 & 0.2648 & 15.504 & 0.2127 & 0.849 & 0.4838 \\
+0.8742 & 0.4838 & -0.0411 & 0.0188 & -0.9634 & 0.2648 & -0.0411
 \end{bmatrix}`$ - the combined matrix  
 *U* = **submatrix**(*SVD*; 1; 3; 1; 3)' =  
 $`\begin{bmatrix}
- - 0.163 & 0.2127 & - 0.9634 \\
- - 0.4573 & 0.849 & 0.2648 \\
-0.8742 & 0.4838 & - 0.0411
+ -0.163 & 0.2127 & -0.9634 \\
+ -0.4573 & 0.849 & 0.2648 \\
+0.8742 & 0.4838 & -0.0411
 \end{bmatrix}`$ - extracts the U matrix  
 *V* = **submatrix**(*SVD*; 1; 3; 5; 7)' =  
 $`\begin{bmatrix}
- - 0.163 & - 0.4573 & 0.8742 \\
+ -0.163 & -0.4573 & 0.8742 \\
 0.2127 & 0.849 & 0.4838 \\
- - 0.9634 & 0.26483 & - 0.0411
+ -0.9634 & 0.26483 & -0.0411
 \end{bmatrix}`$ - extracts the V matrix  
 *σ* = **col**(*SVD*; 4)' = \[123.477  15.504  0.0188\] - extract singular values  
 *Σ* = **vec2diag**(*σ*)' =  
@@ -3487,14 +3487,14 @@ $`\begin{bmatrix}
     *Return value*: the inverse of matrix *M*.  
     *Notes*: The inverse is obtained by LU decomposition for non-symmetric matrices and LDLT decomposition for symmetric ones. If the matrix is singular, the inverse does not exist. If it is ill conditioned, the result will be distorted by large errors. This is detected during the LU decomposition by watching for a zero or tiny pivot element. If one is detected, an appropriate error message is returned, instead of erroneous solution.  
     *Example*: *A* = \[4; 12; -16\|12; 37; -43\|-16; -43; 98\]' = $`\begin{bmatrix}
-4 & 12 & - 16 \\
-12 & 37 & - 43 \\
- - 16 & - 43 & 98
+4 & 12 & -16 \\
+12 & 37 & -43 \\
+ -16 & -43 & 98
 \end{bmatrix}`$  
 *B* = **inverse**(*A*)' =$`\begin{bmatrix}
-49.361 & - 13.556 & 2.111 \\
- - 13.556 & 3.778 & - 0.556 \\
-2.111 & - 0.556 & 0.111
+49.361 & -13.556 & 2.111 \\
+ -13.556 & 3.778 & -0.556 \\
+2.111 & -0.556 & 0.111
 \end{bmatrix}`$
 
 *A*\**B*' = $`\begin{bmatrix}
@@ -3512,9 +3512,9 @@ $\vec{b}$ - the right-hand side vector.
 
     *Notes*: Calculations are performed by using LU decomposition for non-symmetric matrices and LDLT for symmetric. That is why the matrix is not required to be positive-definite. If *A* is singular or ill-conditioned, an error message is returned.  
     *Example*: *A* = \[8; 6; -4\|6; 12; -3\|-4; -3; 9\]' = $`\begin{bmatrix}
-8 & 6 & - 4 \\
-6 & 12 & - 3 \\
- - 4 & - 3 & 9
+8 & 6 & -4 \\
+6 & 12 & -3 \\
+ -4 & -3 & 9
 \end{bmatrix}`$  
 *b* = \[10; 20; 30\]' = \[10 20 30\]  
 *x* = **lsolve**(*A*; *b*)' = \[2.5 1.667 5\] - the solution vector  
@@ -3528,9 +3528,9 @@ $\vec{b}$ - the right-hand side vector.
     *Notes*: Cholesky decomposition is faster than LU and LDLT, so this function should be preferred over **lsolve** whenever the matrix is symmetric and positive- definite.  
     *Example*: *A* = **copy**(\[8; 6; -4\|6; 12; -3\|-4; -3; 9\]; \_  
     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-8 & 6 & - 4 \\
-6 & 12 & - 3 \\
- - 4 & - 3 & 9
+8 & 6 & -4 \\
+6 & 12 & -3 \\
+ -4 & -3 & 9
 \end{bmatrix}`$  
 *b* = \[10; 20; 30\]' = \[10 20 30\]  
 *x* = **clsolve**(*A*; *b*)' = \[2.5 1.667 5\] - the solution vector  
@@ -3544,9 +3544,9 @@ $\vec{b}$ - the right-hand side vector.
     *Notes*: The PCG method is iterative and is faster than the direct Cholesky decomposition method. Whenever you have larger systems with tens to hundreds of thousands equations it is recommended to use the **slsolve** function with high performance matrices and vectors.  
     *Example*: *A* = **copy**(\[8; 6; -4\|6; 12; -3\|-4; -3; 9\]; \_  
     **symmetric_hp**(3); 1; 1)' = $`\begin{bmatrix}
-8 & 6 & - 4 \\
-6 & 12 & - 3 \\
- - 4 & - 3 & 9
+8 & 6 & -4 \\
+6 & 12 & -3 \\
+ -4 & -3 & 9
 \end{bmatrix}`$  
 *b* = **hp**(\[10; 20; 30\])' = \[10 20 30\]  
 *x* = **slsolve**(*A*; *b*)' = \[2.5 1.667 5\] - the solution vector  
@@ -3562,9 +3562,9 @@ $\vec{b}$ - the right-hand side vector.
 > *Notes*: Similar to **lsolve**, except that matrix *B* columns contain multiple right-hand side vectors and matrix *X* columns represent the respective solution vectors. In this way, the function can solve multiple systems of linear equations in parallel. The LU/LDLT decomposition of *A* is performed only once in the beginning and the result is reused for backsubstitution multiple times.
 >
 > *Example*: *A* = \[8; 6; -4\|6; 12; -3\|-4; -3; 9\]' = $`\begin{bmatrix}
-> 8 & 6 & - 4 \\
-> 6 & 12 & - 3 \\
->  - 4 & - 3 & 9
+> 8 & 6 & -4 \\
+> 6 & 12 & -3 \\
+>  - 4 & -3 & 9
 > \end{bmatrix}`$  
 > *B* = **join**<sub>cols</sub>(\[10; 20; 30\]; \[40; 50; 60\])' = $`\begin{bmatrix}
 > 10 & 40 \\
@@ -3593,9 +3593,9 @@ $\vec{b}$ - the right-hand side vector.
 >
 > *Example*: *A* = **copy**(\[8; 6; -4\|6; 12; -3\|-4; -3; 9\]; \_  
 >     **symmetric**(3); 1; 1)' = $`\begin{bmatrix}
-> 8 & 6 & - 4 \\
-> 6 & 12 & - 3 \\
->  - 4 & - 3 & 9
+> 8 & 6 & -4 \\
+> 6 & 12 & -3 \\
+>  - 4 & -3 & 9
 > \end{bmatrix}`$  
 > *B* = **join**<sub>cols</sub>(\[10; 20; 30\]; \[40; 50; 60\])' = $`\begin{bmatrix}
 > 10 & 40 \\
@@ -3624,9 +3624,9 @@ $\vec{b}$ - the right-hand side vector.
 >
 > *Example*: *A* = **copy**(\[8; 6; -4\|6; 12; -3\|-4; -3; 9\]; \_  
 >     **symmetric_hp**(3); 1; 1)' = $`\begin{bmatrix}
-> 8 & 6 & - 4 \\
-> 6 & 12 & - 3 \\
->  - 4 & - 3 & 9
+> 8 & 6 & -4 \\
+> 6 & 12 & -3 \\
+>  - 4 & -3 & 9
 > \end{bmatrix}`$  
 > *B* = **hp**(**join**<sub>cols</sub>(\[10; 20; 30\]; \[40; 50; 60\]))' = $`\begin{bmatrix}
 > 10 & 40 \\
@@ -3657,8 +3657,8 @@ $\vec{b}$ - the right-hand side vector.
 > 0 & 0 & 0 & 0
 > \end{bmatrix}`$  
 > *B* = **fft**(*A*)' = $`\begin{bmatrix}
-> 10 & - 2 & - 2 & - 2 \\
-> 0 & - 2 & 0 & 2
+> 10 & -2 & -2 & -2 \\
+> 0 & -2 & 0 & 2
 > \end{bmatrix}`$
 
   **ift**(*M*)
@@ -3670,8 +3670,8 @@ $\vec{b}$ - the right-hand side vector.
 > *Notes*: The inverse Fourier transform is performed by using the classic Cooley-Turkey algorithm.
 >
 > *Example*: *A* = \[1; 2; 3; 4\|0\]' = $`\begin{bmatrix}
-> 10 & - 2 & - 2 & - 2 \\
-> 0 & - 2 & 0 & 2
+> 10 & -2 & -2 & -2 \\
+> 0 & -2 & 0 & 2
 > \end{bmatrix}`$  
 > *B* = **ift**(*A*)' = $`\begin{bmatrix}
 > 1 & 2 & 3 & 4 \\
