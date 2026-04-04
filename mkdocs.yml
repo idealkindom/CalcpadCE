@@ -34,7 +34,20 @@ nav:
   - How It Works: 05-how-it-works.md
   - Theoretical Background: 06-theoretical-background.md
   - Writing Code: 07-writing-code.md
-  - Expressions: 08-expressions.md
+  - Expressions:
+    - expressions/_index.md
+    - Constants: expressions/01-constants.md
+    - Variables: expressions/02-variables.md
+    - Operators: expressions/03-operators.md
+    - Brackets: expressions/04-brackets.md
+    - Functions: expressions/05-functions.md
+    - Plotting: expressions/06-plotting.md
+    - Numerical Methods: expressions/07-numerical-methods.md
+    - Iterative Procedures: expressions/08-iterative-procedures.md
+    - Units: expressions/09-units.md
+    - Vectors: expressions/10-vectors.md
+    - Matrices: expressions/11-matrices.md
+    - High Performance Vectors and Matrices: expressions/12-high-performance-vectors-and-matrices.md
   - Reporting: 09-reporting.md
   - Programming: 10-programming.md
   - Results: 11-results.md
