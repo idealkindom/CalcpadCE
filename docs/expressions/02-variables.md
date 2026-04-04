@@ -10,5 +10,5 @@ If you redefine an existing variable with a new value, it will replace the old o
 Variable names can include small or capital Unicode letters and digits.
 Names are case sensitive.
 For example, "*a*" and "*A*" are different variables.
-A name must start with a letter or ∡. superscripts: " **⁰** " - " **⁹** ", " **ⁿ** ", " **⁺** ", " **⁻** ", subscripts: subscripts: " **₀ **" - " **₉ **", " **₊** ", " **₋** ", " **₌** ", " **₍** ", " **₎** " ; and other symbols: " **′** ", " **″** ", " **‴** ", " **⁗** ", " **ø** ", "**Ø**", " **°** ", "**∡**". The first occurrence of an underscore in a name starts a subscript.
-For example, "a_1_1" will be formatted as "*a*1_1". Variables can store either real or complex numbers (in "Complex" mode).
+A name must start with a letter or ∡. superscripts: " **⁰** " - " **⁹** ", " **ⁿ** ", " **⁺** ", " **⁻** ", subscripts: subscripts: " **₀**" - " **₉**", " **₊** ", " **₋** ", " **₌** ", " **₍** ", " **₎** " ; and other symbols: " **′** ", " **″** ", " **‴** ", " **⁗** ", " **ø** ", "**Ø**", " **°** ", "**∡**". The first occurrence of an underscore in a name starts a subscript.
+For example, "a_1_1" will be formatted as $a_{1\_1}$". Variables can store either real or complex numbers (in "Complex" mode).
