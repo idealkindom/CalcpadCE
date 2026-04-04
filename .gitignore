@@ -275,6 +275,16 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
+# MathJax bundle (downloaded during CI build)
+docs/javascripts/mathjax/
+
+# MkDocs build output
+site/
+
+# npm artifacts from local MathJax setup
+package.json
+package-lock.json
+
 # Visual Studio 6 build log
 *.plg
 

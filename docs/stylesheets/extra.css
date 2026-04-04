@@ -1,0 +1,7 @@
+/* Inline icons are exported at 2x (HiDPI). Scale them down to
+   match the surrounding text and keep line spacing consistent. */
+img[height="20"] {
+  height: 1.2em;
+  width: auto;
+  vertical-align: text-bottom;
+}

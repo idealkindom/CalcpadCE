@@ -1,0 +1,66 @@
+site_name: CalcpadCE Documentation
+use_directory_urls: false
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+hooks:
+  - hooks/math_fix.py
+
+nav:
+  - Home: index.md
+  - Fields of Application: 02-fields-of-application.md
+  - Installation: 03-installation.md
+  - Licensing: 04-licensing-and-terms-of-use.md
+  - How It Works: 05-how-it-works.md
+  - Theoretical Background: 06-theoretical-background.md
+  - Writing Code: 07-writing-code.md
+  - Expressions: 08-expressions.md
+  - Reporting: 09-reporting.md
+  - Programming: 10-programming.md
+  - Results: 11-results.md
+  - Working with Files: 12-working-with-files.md
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - def_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: math
+          class: arithmatex
+          format: !!python/object/apply:pymdownx.arithmatex.arithmatex_fenced_format
+            kwds:
+              mode: generic
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - javascripts/mathjax/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
