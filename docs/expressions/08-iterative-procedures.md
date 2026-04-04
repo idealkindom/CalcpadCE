@@ -5,20 +5,26 @@ Unlike numerical methods, they can work with complex numbers.
 
 ## Sum
 
-\$Sum{**f**(*k*) @ *k* = *a* : *b*}
+```matlab
+$Sum{f(k) @ k = a : b}
+```
 
 It sums the values of f(*k*) for all integer *k* between *a* and *b*. The values of *k* can only grow, so it should be satisfied that *a* \< *b*. Instead of f(*k*) you can put any valid expression that includes *k*. Otherwise, it will simply sum the same value *k* times.
 For example, you can use series to calculate constants.
 Such is the Leibniz formula for calculation of π:
 
-4\*\$Sum{(-1)*k*+1/(2\**k* - 1) @ *k* = 1:1000}= 3.1406
+```matlab
+4 * $Sum{(-1)^(k+1)/(2*k - 1) @ k = 1:1000}` $= 3.1406$
+```
 
 You can also use series to define functions.
 Of course, they cannot be infinite.
 The number of iterations should be sufficient to provide the required precision of the result.
 The following pattern can be applied to approximate a function with Fourier series:
 
-> **f**(*x*) = *a*0/2 + \$Sum{**a**(*k*)\***cos**(*k*\**x*\*π/*l*) @ *k*=1:*n*} + \$Sum{**b**(*k*)\***sin**(*k*\**x*\*π/*l*) @ *k*=1:*n*}
+```matlab
+f(x) = a_0/2 + $Sum{a(k)*cos(k*x*π/l) @ k=1:n} + $Sum{b(k)*sin(k*x*π*l) @ k=1:n}
+```
 
 As an example, we can take a straight line within the interval (0; 2\**l*), withs equation: f(*x*) = *x*/(2\**l*). The integration constants are *a*(*k*) = 0 and *b*(*k*) = -1/(*k*\*π). If we plot the Fourier approximation for *n* = 5, we will get the following result:
 
@@ -26,38 +32,52 @@ As an example, we can take a straight line within the interval (0; 2\**l*), with
 
 ## Product
 
-\$Product{**f**(*k*) @ *k* = *a* : *b*}
+```matlab
+$Product{f(k) @ k = a : b}
+```
 
 It works like "**Sum**", but it multiplies the terms instead of adding them.
 For example, you can define your own factorial function:
 
-**F**(*n*) = \$Product{*k* @ *k* = 1 : *n*}
+```matlab
+F(n) = $Product{k @ k = 1 : n}
+```
 
 You can use it further to calculate binomial coefficients by the well-known formula: C(*n*; *k*) = F(*n*)/(F (*k*)\*F(*n* - *k*)). However, it is much more efficient to define a special procedure that computes the coefficient directly without using factorials:
 
-\$Product{(*i* + *n* - *k*)/*i* @ *i* = *1*:*k*}
+```matlab
+$Product{(i + n - k)/i @ i = 1:k}
+```
 
 Also, the latter will not overflow together with the factorials for greater values of *n*.
 
 ## Repeat
 
-\$Repeat{**f**(*k*) @ *k* = *a* : *b*}
+```matlab
+$Repeat{f(k) @ k = a : b}
+```
 
 This is a general inline iterative procedure that repeatedly calculates **f**(*k*). It can be used for sums and products instead of the respective procedures, but it is not so efficient.
 However, there are expressions that can be calculated only by the "**Repeat**" command.
 Normally, such expressions will make sense if you assign the result to a variable to be used in the next iteration.
 So, the following pattern is more likely to be applied in practice:
 
-\$Repeat{*x* = **f**(*x*; *k*) @ *k* = *a* : *b*}
+```matlab
+$Repeat{x = f(x; k) @ k = a : b}
+```
 
 For example, you can use this command to define the Mandelbrot set in a single line:
 
-**f**(*z*; *c*) = \$Repeat{*z* = *z*^2 + *c* @ *i* = 1:100}
+```matlab
+f(z; c) = $Repeat{z = z^2 + c @ i = 1:100}
+```
 
 You should not forget to switch to "Complex" mode.
 Then you can plot the result:
 
-\$Map{**abs**(**f**(0; *x* + 1i\**y*)) @ *x* = -1.5:0.5 & *y* = -1:1}
+```matlab
+$Map{abs(f(0; x + 1i*y)) @ x = -1.5:0.5 & y = -1:1}
+```
 
 <img src="../media/image27.png" style="width:4.81217in;height:4.37051in" alt="Mandelbrot" />
 
@@ -68,14 +88,13 @@ All expressions can assign to local variables.
 You can use expression blocks to embed short algorithmic procedures into function definitions, inline loops or any other expressions and expression blocks.
 There are two types of expression blocks that differ only in the way they are rendered in the output:
 
-> \$Block{*expr1*; *expr2*; *expr3*; ...} - multiline block of expressions;
->
-> \$Inline{*expr1*; *expr2*; *expr3*; ...} - inline block of expressions.
+- `$Block{expr1; expr2; expr3; ...}` multiline block of expressions;
+- `$Inline{expr1; expr2; expr3; ...}` inline block of expressions.
 
-As the respective names imply, \$Block is rendered on multiple lines, one for each expression, and for \$Inline all expressions are rendered on a single line sequentially from left to right.
+As the respective names imply, `$Block` is rendered on multiple lines, one for each expression, and for `$Inline` all expressions are rendered on a single line sequentially from left to right.
 
 You can use expression blocks to create multiline functions when a single expression is not sufficient to evaluate the result.
-Such is the *quadRoots* function in the example below that find the roots of a quadratic equation by given coefficients *a*, *b*, *c* and returns them as a vector of two elements \[*x*<sub>1</sub>; *x*<sub>2</sub>\].
+Such is the *quadRoots* function in the example below that find the roots of a quadratic equation by given coefficients *a*, *b*, *c* and returns them as a vector of two elements $[x_1; x_2]$.
 
 <table style="width:91%;">
 <colgroup>
@@ -90,23 +109,27 @@ Such is the *quadRoots* function in the example below that find the roots of a
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">quadRoots(a; b; c) = _<br />
-$block{<br />
-    D = b^2 - 4*a*c;<br />
-    x_1 = (-b - <strong>sqrt</strong>(D))/(2*a);<br />
-    x_2 = (-b + <strong>sqrt</strong>(D))/(2*a);<br />
-    [x_1; x_2];<br />
-}<br />
-quadRoots(2; 3; -5)</td>
-<td><img src="../media/image28.png" style="width:2.97085in;height:1.7867in" /></td>
+<td style="text-align: left;">
+```matlab
+quadRoots(a; b; c) = _
+$block{
+    D = b^2 - 4*a*c;
+    x_1 = (-b - sqrt(D))/(2*a);
+    x_2 = (-b + sqrt(D))/(2*a);
+    [x_1; x_2];
+}
+quadRoots(2; 3; -5)
+```
+</td>
+<td><img src="../media/image28.png" width="400" /></td>
 </tr>
 </tbody>
 </table>
 
-When you have a \$Repeat inline loop you can nest multiple expressions directly inside without enclosing them with a \$block/\$inline element.
+When you have a `$Repeat` inline loop you can nest multiple expressions directly inside without enclosing them with a `$block`/`$inline` element.
 Alternatively, you can use a conditional “while“ loop:
 
-> \$While{*condition*; *expr1*; *expr2*; ...} - iterative expression block with condition.
+`$While{condition; expr1; expr2; ...}` iterative expression block with condition.
 
 All expressions inside a block or inline loop are compiled, so that they are executed very fast.
 They are evaluated sequentially from left to right and only the last result is returned at the end.
