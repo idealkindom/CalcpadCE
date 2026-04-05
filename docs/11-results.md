@@ -33,14 +33,14 @@ After that, if you position the mouse over a variable, you will see a tooltip wi
 There is also an option to control the variable substitution behavior inside worksheets.
 You can use the following switches for that purpose:
 
-  #nosub - do not substitute variables (no substitution);  
-  #novar - show equations only with substituted values (no variables);  
-  #varsub - show equations with variables and substituted values (default).
+- `#nosub` do not substitute variables (no substitution)
+- `#novar` show equations only with substituted values (no variables)
+- `#varsub` show equations with variables and substituted values (default)
 
 If an equation gets too long and does not fit on a single line, you can choose the way it looks in the output by using these two switches:
 
-  #split - the equation is split after the "=" symbol;  
-  #wrap - the equation is wrapped at the end of the line (default).
+- `#split` the equation is split after the "=" symbol
+- `#wrap` the equation is wrapped at the end of the line (default)
 
 ## Rounding
 
@@ -58,24 +58,19 @@ When the total number of digits becomes greater than 2*n*, the factional part is
 In this way, the output becomes easier to read, still providing at least 2*n* significant digits.
 You can see several examples below, obtained for *n* = 3.
 
-> 0.000001 ∙ *π* = 3.14E-06
->
-> 0.001 ∙ *π* = 0.00314
->
-> 0.1 ∙ *π* = 0.314
->
-> 1 ∙ *π* = 3.142
->
-> 1000 ∙ *π* = 3141.59
->
-> 1000000 ∙ *π* = 3141593
+- `0.000001 * π` $= 3.14 \times 10^{-6}$
+- `0.001 * π` $= 0.00314$
+- `0.1 * π` $= 0.314$
+- `1 * π` $= 3.142$
+- `1000 * π` $= 3141.59$
+- `1000000 * π` $= 3141593$
 
 Rounding affects only the way in which numbers are displayed in the output.
 Internally, all numbers are stored with the maximum possible precision.
 That is why, if you print the output and try to repeat the calculations with the numbers from the report, you probably will get some little differences.
 This is because you use the rounded values instead of the actual ones.
 
-You can override the global rounding inside a worksheet by using the \#Round *n* keyword, where *n* is the number of digits after the decimal point (from "0" to "15"). To restore the global rounding, enter #Round default.
+You can override the global rounding inside a worksheet by using the `#Round n` keyword, where *n* is the number of digits after the decimal point (from "0" to "15"). To restore the global rounding, enter `#Round` default.
 
 ## Formatting
 
@@ -104,17 +99,14 @@ Several examples of formatting in different cases are provided in the table belo
 
 | Text         | Html                               |
 |--------------|------------------------------------|
-| x + 3        | *x* + 3                            |
-| x-3          | *x* – 3                            |
-| 3\*x         | 3∙*x*                              |
-| (x + 1)/3    | (*x* + 1)/3 or $`\frac{x + 1}{3}`$ |
-| x+3 \* y     | *x* + 3∙*y*                        |
-| **sqr**(x+3) |                                    
-                ``` math                            
-                \sqrt{x + 3}                        
-                ```                                 |
-| x_1^3        | *x*13                              |
-| **sin**(x)   | **sin**(*x*)                       |
+| `x + 3`      | *x* + 3                            |
+| `x - 3`      | *x* – 3                            |
+| `3 * x`      | 3∙*x*                              |
+| `(x + 1)/3`  | (*x* + 1)/3 or $`\frac{x + 1}{3}`$ |
+| `x + 3 * y`  | *x* + 3∙*y*                        |
+| `sqr(x+3)`   | $\sqrt{x + 3}$                     |
+| `x_1^3`      | $x_1^3$                            |
+| `sin(x)`     | **sin**(*x*)                       |
 
 Html formatting makes the report easier to read and check than the respective plain text.
 You can also insert additional Html code inside the comments that will affect the final appearance.
@@ -128,19 +120,19 @@ Calcpad uses for decimal separator the symbol defined in the Windows' Regional S
 You can specify format strings for different parts of your worksheet and even for individual output values.
 At worksheet level you can do that by following command:
 
-> \#format *format string*
+`#format format string`
 
 To restore the default formatting, add the following line:
 
-> \#format default
+`#format default`
 
 To specify a custom format string for an individual output value, add a colon followed by the respective string, e.g.:
 
-> *x* = 12.345:*format string*
+`x = 12.345:format string`
 
 If you have units, the format specifier is positioned after the units:
 
-> *x* = 12.345cm:*format string*
+`x = 12.345cm:format string`
 
 There are several types of format strings that you can use:
 
