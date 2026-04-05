@@ -7,38 +7,49 @@ The software requires a 64-bit computer with Windows 10/11 and [Microsoft .NET D
 
 ## Linux
 
-1.  Calcpad is a .NET application, so you need .NET 10.0 to run it on Linux.
-Use the following commands to install .NET 10.0 runtime:
+1. Calcpad is a .NET application, so you need .NET 10.0 to run it on Linux.
+    Use the following commands to install .NET 10.0 runtime:
 
-> sudo apt update
->
-> sudo apt-get install -y dotnet-runtime-10.0
+    ```bash
+    sudo apt update
 
-If you need to uninstall older dotnet versions, run this command before the above ones:
+    sudo apt-get install -y dotnet-runtime-10.0
+    ```
 
-> sudo apt remove dotnet\*
+    If you need to uninstall older dotnet versions, run this command before the above ones:
 
-2.  If you do not have Chromium installed, you will need it to download Calcpad and view the reports after calculation.
-Install it with the following command:
+    ```bash
+    sudo apt remove dotnet*
+    ```
 
-> sudo snap install chromium
+2. If you do not have Chromium installed, you will need it to download Calcpad and view the reports after calculation.
+    Install it with the following command:
 
-3.  Download the Calcpad setup package from the following link: <https://github.com/Proektsoftbg/Calcpad/releases/download/v7.5.9/Calcpad.7.5.9.deb>
+    ```bash
+    sudo snap install chromium
+    ```
 
-Then, install Calcpad, using the following command:
+3. Download the Calcpad setup package from the following link: <https://github.com/Proektsoftbg/Calcpad/releases/download/v7.5.9/Calcpad.7.5.9.deb>
+    Then, install Calcpad, using the following command:
 
-> sudo apt-get install -y \<path-to-your-downloads-folder\>/Calcpad.7.5.9.deb
+    ```bash
+    sudo apt-get install -y <path-to-your-downloads-folder>/Calcpad.7.5.9.deb
+    ```
 
-Instead of \<path-to-your-downloads-folder\> you must put the actual path, something like this:
+    Instead of <path-to-your-downloads-folder\> you must put the actual path, something like this:
 
-> sudo apt-get install -y /home/ned/snap/chromium/3235/Downloads/Calcpad.7.5.9.deb
+    ```bash
+    sudo apt-get install -y /home/ned/snap/chromium/3235/Downloads/Calcpad.7.5.9.deb
+    ```
 
-If you get a message like the one below, please ignore it: N: Download is performed unsandboxed as root as file '.../Calcpad.7.5.9.deb' couldn't be accessed by user '\_apt'. - pkgAcquire::Run (13: Permission denied)
+    If you get a message like the one below, please ignore it: N: Download is performed unsandboxed as root as file '.../Calcpad.7.5.9.deb' couldn't be accessed by user '\_apt'. - pkgAcquire::Run (13: Permission denied)
 
 And that's it.
 You can start the Calcpad command line interpreter (CLI) by simply typing:
 
-> calcpad
+```bash
+calcpad
+```
 
 You can use it to perform calculations in console mode:
 
@@ -51,34 +62,37 @@ Instructions on how to install Sublime Text on Linux are provided here: 
 
 For Ubuntu, you can use the following commands:
 
-> wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg \| gpg --dearmor \| sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg \> /dev/null
->
-> sudo apt-get update
->
-> echo "deb https://download.sublimetext.com/ apt/stable/" \| sudo tee /etc/apt/sources.list.d/sublime-text.list
->
-> sudo apt-get install sublime-text
+```bash
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+
+sudo apt-get update
+
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+sudo apt-get install sublime-text
+```
 
 Then, goto <https://github.com/Proektsoftbg/Calcpad/tree/main/Setup/Linux/Sublime> and download the following files:
 
-> calcpad.sublime-build  
-> calcpad.sublime-completions  
-> calcpad.sublime-syntax  
-> Monokai.sublime-color-scheme
+- calcpad.sublime-build  
+- calcpad.sublime-completions  
+- calcpad.sublime-syntax  
+- Monokai.sublime-color-scheme
 
 Copy them to the Sublime Text user package folder:
 
-/home/\<user\>/.config/sublime-text/Packages/User
+/home/<user\>/.config/sublime-text/Packages/User
 
-Here, \<user\> must be your actual username.
+Here, <user\> must be your actual username.
 Finally, you can open Sublime Text and Chromium with the following commands:
 
-> subl &
->
-> chromium &
+```text
+subl &
+chromium &
+```
 
 Put them side to side.
-Start a new \*.cpd file in Sublime Text or open an example from the /home/\<user\>/Calcpad folder.
+Start a new \*.cpd file in Sublime Text or open an example from the /home/<user\>/Calcpad folder.
 Press Ctrl+B to calculate.
 If everything is OK, the results will show in Chromium:
 
@@ -86,4 +100,6 @@ If everything is OK, the results will show in Chromium:
 
 Finally, if you want to uninstall Calcpad, type the following:
 
-> sudo apt-get --purge remove calcpad
+```bash
+sudo apt-get --purge remove calcpad
+```
