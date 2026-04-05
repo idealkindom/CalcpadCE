@@ -25,7 +25,7 @@ It is used to assign values to variables, e.g. "*a* = 2". Press the <img src="..
 
 Alternatively, you can have several expressions in a single line, but they must be separated by comments, e.g.:
 
-`'Length -'*a* = 3m', Width -'*b* = 2\**a*', Height -'*c* = 5m`
+`'Length -'a = 3m', Width -'b = 2*a', Height -'c = 5m`
 
 On the other hand, if an expression is too long and complex, you can split it into several lines by adding line continuation operator " \_" at the end of each line.
 You can split a line without adding " \_" always when it ends with an opening bracket: "{", "(", "\[" or delimiter: ";", "\|", "&", "@", ":" that is not inside a comment.
