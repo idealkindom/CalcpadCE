@@ -1,6 +1,6 @@
-﻿# Writing code
+﻿# Writing Math
 
-Enter the code into the "**Code**" input window.
+Enter the math into the "**Code**" input window.
 Spacing and indent are maintained automatically.
 You can use the computer keyboard or the "**Numeric Keypad**" below.
 You can copy text from and to the input window or any external program (e.g. **Word**). There is a toolbar above the input window with some useful editing commands: Copy, Paste, Undo, Redo and Insert Image.
