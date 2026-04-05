@@ -15,6 +15,8 @@ For example, comments are colored green, and errors are colored red.
 All comments must be enclosed by quotes.
 They can include both plain text and **Html**. You can use Html to add pictures, tables and format the report.
 
+## User Interface
+
 ### Numeric Keypad
 
 <img src="./media/image12.png" style="width:5.96875in;height:1.85417in" alt="Keyboard" />
@@ -159,9 +161,8 @@ You can insert Greek letters by clicking the respective symbol below the code ed
 Alternatively, type the Latin equivalent from the table below and press "**Ctrl+G**". If you press it again, you will convert the letter back from Greek to Latin.
 Since "j"/"J" and "V" remain unused, they are mapped to "ø"/"Ø" and "∡", respectively.
 
-|           |       |       |       |       |
-|-----------|-------|-------|-------|-------|
 | Name      | greek | latin | Greek | Latin |
+|-----------|-------|-------|-------|-------|
 | alpha     | α     | a     | Α     | A     |
 | beta      | β     | b     | Β     | B     |
 | gamma     | γ     | g     | Γ     | G     |
