@@ -54,7 +54,7 @@ You can put question marks "**?**" not only in variable definitions, but at any 
 Then, you can enter a value and calculate the result.
 This approach is not recommended for complicated problems, because the program logic gets unclear and difficult to understand.
 
-### Advanced UI with Html and CSS
+## Advanced UI with Html and CSS
 
 Besides simple input boxes, you can use some advanced UI elements like "**select**" (combo box), "**radio**" buttons and "**checkboxes**" in your worksheets.
 Since all the output from Calcpad is rendered as an Html document, you can use Html and CSS for that purpose.
@@ -64,7 +64,7 @@ This is performed by enclosing the text box into an outer html element (paragrap
 Then, the content of the source element's value attribute will be automatically filled in the target text box.
 You can use the following sample code:
 
-#### Selection box
+### Selection box
 
 ```text
 'Select an option: <select name="**target1**">
@@ -78,7 +78,7 @@ You can use the following sample code:
 
 ![Dropdown and two input field](media/Image%2045.png){style="width: 300px"}
 
-#### Radio buttons
+### Radio buttons
 
 ```text
 '<p>Select:
@@ -92,7 +92,7 @@ You can use the following sample code:
 
 ![Two radio buttons and an input field](media/Image%2046.png){style="width: 250px"}
 
-#### Check box
+### Check box
 
 ```text
 '<p><input name="target3" type="checkbox" id="chk1" value="3"/>

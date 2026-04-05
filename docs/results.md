@@ -115,7 +115,7 @@ You will also need the cloud version of Calcpad for that purpose.
 
 Calcpad uses for decimal separator the symbol defined in the Windows' Regional Settings.
 
-### Custom format strings
+## Custom format strings
 
 You can specify format strings for different parts of your worksheet and even for individual output values.
 At worksheet level you can do that by following command:

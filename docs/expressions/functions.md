@@ -1,10 +1,8 @@
 ﻿# Functions
 
-## Library (built-in) functions
+Calcpad includes a library with common math functions, ready to use.
 
-Calcpad includes a library with common math functions, ready to use:
-
-### Trigonometric
+## Trigonometric
 
 | Name | Description |
 | -------- | - |
@@ -15,7 +13,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `sec(x)` | secant = 1/**cos**(*x*), for each *x* ≠ π/2 + kπ, k=1, 2, 3… |
 | `cot(x)` | cotangent = **cos**(*x*)/**sin**(*x*), for each *x* ≠ π/2 + kπ, k=1, 2, 3… |
 
-### Hyperbolic
+## Hyperbolic
 
 | Name | Description |
 | -------- | - |
@@ -26,7 +24,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `sech(x)` | hyperbolic secant = 1/**cosh**(*x*) |
 | `coth(x)` | hyperbolic cotangent = (e*x* + e-*x*)/(e*x* - e-*x*), for *x* ≠ 0 |
 
-### Inverse trigonometric
+## Inverse trigonometric
 
 | Name | Description |
 | -------- | - |
@@ -38,7 +36,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `asec(x)` | inverse secant = **acos**(1/*x*) |
 | `acot(x)` | inverse cotangent |
 
-### Inverse hyperbolic
+## Inverse hyperbolic
 
 | Name | Description |
 | -------- | - |
@@ -49,7 +47,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `asech(x)` | inverse hyperbolic secant = **acosh**(1/*x*) |
 | `acoth(x)` | inverse hyperbolic cotangent = 1/2·**ln**\[(*x* + 1)/(*x* - 1)\], for \|*x*\| \> 1 |
 
-### Log/Exponential and roots
+## Log/Exponential and roots
 
 | Name | Description |
 | -------- | - |
@@ -61,7 +59,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `cbrt(x)` | cubic root (3√‾*x*) |
 | `root(x; n)` | n-th root (n√‾*x*) |
 
-### Rounding
+## Rounding
 
 | Name | Description |
 | -------- | - |
@@ -70,7 +68,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `ceiling(x)` | rounds to the greater integer (towards +∞) |
 | `trunc(x)` | rounds to the smaller integer (towards zero) |
 
-### Integer
+## Integer
 
 | Name | Description |
 | -------- | - |
@@ -78,7 +76,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `gcd(x; y; z…)` | the greatest common divisor of several integers |
 | `lcm(x; y; z…)` | the least common multiple of several integers |
 
-### Complex
+## Complex
 
 | Name | Description |
 | -------- | - |
@@ -88,7 +86,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `phase(a + bi)` | complex number phase (argument) = **atan2**(a; b) |
 | `conj(a + bi)` | complex number conjugate = a - bi. |
 
-### Aggregate and interpolation
+## Aggregate and interpolation
 
 | Name | Description |
 | -------- | - |
@@ -104,7 +102,7 @@ Calcpad includes a library with common math functions, ready to use:
 | $line(x; A; \vec{b}; c…)$ | performs linear interpolation among the specified values for *x* |
 | $spline(x; A; \vec{b}; c…)$ | performs Hermite spline interpolation |
 
-### Conditional and logical
+## Conditional and logical
 
 | Name | Description |
 | -------- | - |
@@ -115,7 +113,7 @@ Calcpad includes a library with common math functions, ready to use:
 | `or(x; y; z…)` | logical "or" |
 | `xor(x; y; z…)` | logical "xor" |
 
-### Other
+## Other
 
 | Name | Description |
 | -------- | - |
