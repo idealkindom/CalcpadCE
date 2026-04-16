@@ -1,8 +1,9 @@
-# Calcpad Readme  
+# CalcpadCE Readme  
   
 Project Website: https://calcpad-ce.org/ 
-  
-Calcpad is free software for mathematical and engineering calculations. It represents a flexible and modern programmable calculator with Html report generator. It is simple and easy to use, but it also includes many advanced features:  
+GitHub Pages Site: https://imartincei.github.io/CalcpadCE/
+
+Calcpad Community Edition (CalcpadCE) is free software for mathematical and engineering calculations. It represents a flexible and modern programmable calculator with Html report generator. It is simple and easy to use, but it also includes many advanced features:  
   
 * real and complex numbers (rectangular and polar-phasor formats);
 * units of measurement (SI, Imperial and USCS);
