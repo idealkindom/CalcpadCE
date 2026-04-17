@@ -4,7 +4,7 @@
 ;--------------------------------
 ; General
 
-!define APP_NAME "Calcpad"
+!define APP_NAME "CalcpadCE"
 !ifndef APP_VERSION
   !define APP_VERSION "dev"
 !endif
