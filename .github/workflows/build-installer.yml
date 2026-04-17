@@ -14,6 +14,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       installer_name: ${{ steps.version.outputs.installer_name }}
+      portable_name: ${{ steps.version.outputs.portable_name }}
       deb_name: ${{ steps.version.outputs.deb_name }}
       is_release: ${{ steps.version.outputs.is_release }}
     steps:
@@ -30,19 +31,22 @@ jobs:
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
             VERSION="${GITHUB_REF#refs/tags/v}"
             INSTALLER_NAME="CalcpadCE-setup-${VERSION}"
+            PORTABLE_NAME="CalcpadCE-portable-${VERSION}"
             DEB_NAME="Calcpad.${VERSION}"
           else
             VERSION="${BASE_VERSION}-${SHORT_SHA}"
             INSTALLER_NAME="CalcpadCE-setup-${VERSION}"
+            PORTABLE_NAME="CalcpadCE-portable-${VERSION}"
             DEB_NAME="Calcpad.${VERSION}"
           fi
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "installer_name=$INSTALLER_NAME" >> "$GITHUB_OUTPUT"
+          echo "portable_name=$PORTABLE_NAME" >> "$GITHUB_OUTPUT"
           echo "deb_name=$DEB_NAME" >> "$GITHUB_OUTPUT"
           echo "is_release=$([[ "$GITHUB_REF" == refs/tags/v* ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
-  build-installer:
+  build-windows:
     needs: determine-version
     runs-on: windows-latest
     steps:
@@ -71,11 +75,32 @@ jobs:
         shell: bash
         run: mv "Calcpad.Wpf/Installer/Output/CalcpadCE-setup-${{ needs.determine-version.outputs.version }}.exe" "Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.installer_name }}.exe" 2>/dev/null || true
 
-      - name: Upload artifact
+      - name: Upload installer artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ needs.determine-version.outputs.installer_name }}
           path: Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.installer_name }}.exe
+
+      - name: Publish portable single-file
+        run: >
+          dotnet publish Calcpad.Wpf/Calcpad.wpf.csproj
+          -c Release -r win-x64 --self-contained false
+          -p:PublishSingleFile=true
+          -p:EnableCompressionInSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:IncludeAllContentForSelfExtract=true
+          -p:Version=${{ needs.determine-version.outputs.version }}
+          -o portable-output
+
+      - name: Rename portable exe
+        shell: pwsh
+        run: Copy-Item 'portable-output/Calcpad.exe' 'Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.portable_name }}.exe'
+
+      - name: Upload portable artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ needs.determine-version.outputs.portable_name }}
+          path: Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.portable_name }}.exe
 
   build-deb:
     needs: determine-version
@@ -108,7 +133,7 @@ jobs:
 
   release:
     if: needs.determine-version.outputs.is_release == 'true'
-    needs: [determine-version, build-installer, build-deb]
+    needs: [determine-version, build-windows, build-deb]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -117,6 +142,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.determine-version.outputs.installer_name }}
+          path: artifacts/
+
+      - name: Download Windows portable
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.determine-version.outputs.portable_name }}
           path: artifacts/
 
       - name: Download .deb packages
