@@ -11,6 +11,8 @@
     <Product>Cli</Product>
     <AssemblyName>Cli</AssemblyName>
     <StartupObject>Calcpad.Cli.Program</StartupObject>
+    <SymlinkAppHostInBin>false</SymlinkAppHostInBin>
+    <SkipDebDependencies>true</SkipDebDependencies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,24 +23,25 @@
 
   <ItemGroup>
     <Content Include="start.sh" CopyToPublishDirectory="PreserveNewest" LinuxFileMode="755">
-      <LinuxPath>/usr/local/bin/calcpad</LinuxPath>
+      <LinuxPath>/usr/bin/calcpad</LinuxPath>
     </Content>
-    <Content Include="doc\*\*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Examples\*\*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Syntax\*\*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Fonts\*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="doc/**/*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Examples/**/*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Syntax/**/*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Fonts/*" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Settings.xml" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
-  
+
   <ItemGroup>
+    <DebDependency Include="dotnet-runtime-10.0" />
     <DebDependency Include="wkhtmltopdf" />
     <RpmDependency Include="wkhtmltopdf" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="Syntax\Sublime\" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Update="Messages.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -94,21 +97,22 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
     <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <PostInstallScript>
       <![CDATA[
       mkdir -p "/home/$SUDO_USER/calcpad" \
-      && cp -a "/usr/share/Calcpad/Examples" "/home/$SUDO_USER/calcpad/Examples" \
-      && cp -a "/usr/share/Calcpad/doc" "/home/$SUDO_USER/calcpad/doc" \
+      && cp -a "/usr/share/CalcpadCE/Examples" "/home/$SUDO_USER/calcpad/Examples" \
+      && cp -a "/usr/share/CalcpadCE/doc" "/home/$SUDO_USER/calcpad/doc" \
       && mkdir -p "/home/$SUDO_USER/calcpad/syntax/Sublime" \
-      && cp -a "/usr/share/Calcpad/Syntax/Sublime" "/home/$SUDO_USER/calcpad/syntax" \
+      && cp -a "/usr/share/CalcpadCE/Syntax/Sublime" "/home/$SUDO_USER/calcpad/syntax" \
       && mkdir -p "/home/$SUDO_USER/.config/calcpad/" \
-      && cp "/usr/share/Calcpad/Settings.xml" "/home/$SUDO_USER/.config/calcpad/Settings.xml" \
-      && cp -a "/usr/share/Calcpad/Fonts" "/usr/share/fonts/opentype" \
+      && cp "/usr/share/CalcpadCE/Settings.xml" "/home/$SUDO_USER/.config/calcpad/Settings.xml" \
+      && cp -a "/usr/share/CalcpadCE/Fonts" "/usr/share/fonts/opentype" \
       && chown -R $SUDO_USER "/home/$SUDO_USER/calcpad" "/home/$SUDO_USER/.config/calcpad/" \
-      && rm -rf "/usr/share/Calcpad/Examples"
+      && rm -rf "/usr/share/CalcpadCE/Examples"
       ]]>
     </PostInstallScript>
   </PropertyGroup>
+
 </Project>
