@@ -31,6 +31,11 @@ ManifestDPIAware System
 !define MUI_FINISHPAGE_RUN "$INSTDIR\${APP_EXE}"
 !define MUI_FINISHPAGE_RUN_TEXT "Launch ${APP_NAME}"
 
+; Language dialog settings — remember choice in registry for upgrades
+!define MUI_LANGDLL_REGISTRY_ROOT "HKCU"
+!define MUI_LANGDLL_REGISTRY_KEY "Software\${APP_NAME}"
+!define MUI_LANGDLL_REGISTRY_VALUENAME "InstallerLanguage"
+
 ;--------------------------------
 ; Pages
 
@@ -43,9 +48,18 @@ ManifestDPIAware System
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ;--------------------------------
-; Language
+; Languages
 
 !insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "Bulgarian"
+!insertmacro MUI_LANGUAGE "SimpChinese"
+
+;--------------------------------
+; Installer init — show language selection dialog
+
+Function .onInit
+  !insertmacro MUI_LANGDLL_DISPLAY
+FunctionEnd
 
 ;--------------------------------
 ; Install Section
@@ -81,6 +95,16 @@ Section "Install"
   WriteRegStr HKCU "Software\${APP_NAME}" "InstallPath" "$INSTDIR"
   WriteRegStr HKCU "Software\${APP_NAME}" "Version" "${APP_VERSION}"
 
+  ; Map NSIS language ID to app culture string and write to registry
+  StrCmp $LANGUAGE 1026 0 +3
+    WriteRegStr HKCU "Software\${APP_NAME}" "Language" "bg"
+    Goto lang_done
+  StrCmp $LANGUAGE 2052 0 +3
+    WriteRegStr HKCU "Software\${APP_NAME}" "Language" "zh"
+    Goto lang_done
+  WriteRegStr HKCU "Software\${APP_NAME}" "Language" "en"
+  lang_done:
+
   ; Write uninstall information
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "DisplayName" "${APP_NAME}"
@@ -98,6 +122,13 @@ Section "Install"
   IntFmt $0 "0x%08X" $0
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}" "EstimatedSize" $0
 SectionEnd
+
+;--------------------------------
+; Uninstaller init — restore language for uninstall UI
+
+Function un.onInit
+  !insertmacro MUI_UNGETLANGUAGE
+FunctionEnd
 
 ;--------------------------------
 ; Uninstall Section

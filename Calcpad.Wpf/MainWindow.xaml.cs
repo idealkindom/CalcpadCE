@@ -27,7 +27,7 @@ namespace Calcpad.Wpf
     public partial class MainWindow : Window
     {
         // Culture
-        private static readonly string _currentCultureName = "en"; // en, bg or zh
+        private static readonly string _currentCultureName = ReadLanguageFromRegistry();
 
         // Static resources
         private static readonly char[] GreekLetters = ['α', 'β', 'χ', 'δ', 'ε', 'φ', 'γ', 'η', 'ι', 'ø', 'κ', 'λ', 'μ', 'ν', 'ο', 'π', 'θ', 'ρ', 'σ', 'τ', 'υ', 'ϑ', 'ω', 'ξ', 'ψ', 'ζ'];
@@ -3901,6 +3901,14 @@ namespace Calcpad.Wpf
         private void RichTextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             IsWebView2Focused = false;
+        }
+
+        private static string ReadLanguageFromRegistry()
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\CalcpadCE");
+            if (key?.GetValue("Language") is string lang && lang is "en" or "bg" or "zh")
+                return lang;
+            return "en";
         }
     }
 }
