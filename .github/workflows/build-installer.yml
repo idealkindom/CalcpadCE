@@ -4,14 +4,22 @@ on:
   push:
     branches: [main]
     tags: ['v*']
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build-installer:
-    runs-on: windows-latest
+  determine-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      installer_name: ${{ steps.version.outputs.installer_name }}
+      portable_name: ${{ steps.version.outputs.portable_name }}
+      deb_name: ${{ steps.version.outputs.deb_name }}
+      is_release: ${{ steps.version.outputs.is_release }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -20,23 +28,33 @@ jobs:
         id: version
         shell: bash
         run: |
-          # Read base version from Directory.Build.props
           BASE_VERSION=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' Directory.Build.props)
           SHORT_SHA=$(git rev-parse --short HEAD)
 
           if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
-            # Release: version from tag (strip leading 'v')
             VERSION="${GITHUB_REF#refs/tags/v}"
             INSTALLER_NAME="CalcpadCE-setup-${VERSION}"
+            PORTABLE_NAME="CalcpadCE-portable-${VERSION}"
+            DEB_NAME="Calcpad.${VERSION}"
           else
-            # CI preview: base version (includes -preview) + short hash
             VERSION="${BASE_VERSION}-${SHORT_SHA}"
             INSTALLER_NAME="CalcpadCE-setup-${VERSION}"
+            PORTABLE_NAME="CalcpadCE-portable-${VERSION}"
+            DEB_NAME="Calcpad.${VERSION}"
           fi
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "installer_name=$INSTALLER_NAME" >> "$GITHUB_OUTPUT"
+          echo "portable_name=$PORTABLE_NAME" >> "$GITHUB_OUTPUT"
+          echo "deb_name=$DEB_NAME" >> "$GITHUB_OUTPUT"
           echo "is_release=$([[ "$GITHUB_REF" == refs/tags/v* ]] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+  build-windows:
+    needs: determine-version
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
 
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v5
@@ -44,7 +62,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Publish Calcpad WPF
-        run: dotnet publish Calcpad.Wpf/Calcpad.wpf.csproj -c Release -r win-x64 --self-contained false -p:Version=${{ steps.version.outputs.version }}
+        run: dotnet publish Calcpad.Wpf/Calcpad.wpf.csproj -c Release -r win-x64 --self-contained false -p:Version=${{ needs.determine-version.outputs.version }}
 
       - name: Install NSIS
         run: choco install nsis -y --no-progress
@@ -54,21 +72,96 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Path Output -Force | Out-Null
-          & "${env:ProgramFiles(x86)}\NSIS\makensis.exe" /DAPP_VERSION="${{ steps.version.outputs.version }}" CalcpadCE.nsi
+          & "${env:ProgramFiles(x86)}\NSIS\makensis.exe" /DAPP_VERSION="${{ needs.determine-version.outputs.version }}" CalcpadCE.nsi
 
       - name: Rename installer
         shell: bash
-        run: mv "Calcpad.Wpf/Installer/Output/CalcpadCE-setup-${{ steps.version.outputs.version }}.exe" "Calcpad.Wpf/Installer/Output/${{ steps.version.outputs.installer_name }}.exe" 2>/dev/null || true
+        run: mv "Calcpad.Wpf/Installer/Output/CalcpadCE-setup-${{ needs.determine-version.outputs.version }}.exe" "Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.installer_name }}.exe" 2>/dev/null || true
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ needs.determine-version.outputs.installer_name }}
+          path: Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.installer_name }}.exe
+
+      - name: Publish portable single-file
+        run: >
+          dotnet publish Calcpad.Wpf/Calcpad.wpf.csproj
+          -c Release -r win-x64 --self-contained false
+          -p:PublishSingleFile=true
+          -p:EnableCompressionInSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:IncludeAllContentForSelfExtract=true
+          -p:Version=${{ needs.determine-version.outputs.version }}
+          -o portable-output
+
+      - name: Rename portable exe
+        shell: pwsh
+        run: Copy-Item 'portable-output/Calcpad.exe' 'Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.portable_name }}.exe'
+
+      - name: Upload portable artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ needs.determine-version.outputs.portable_name }}
+          path: Calcpad.Wpf/Installer/Output/${{ needs.determine-version.outputs.portable_name }}.exe
+
+  build-deb:
+    needs: determine-version
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rid: [linux-x64, linux-arm64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore packages
+        working-directory: Calcpad.Cli
+        run: dotnet restore Calcpad.Cli.csproj -r ${{ matrix.rid }}
+
+      - name: Build .deb package
+        working-directory: Calcpad.Cli
+        run: dotnet msbuild Calcpad.Cli.csproj -t:CreateDeb -p:Configuration=Release -p:Version=${{ needs.determine-version.outputs.version }} -p:PackagePrefix=CalcpadCE -p:RuntimeIdentifier=${{ matrix.rid }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ steps.version.outputs.installer_name }}
-          path: Calcpad.Wpf/Installer/Output/${{ steps.version.outputs.installer_name }}.exe
+          name: ${{ needs.determine-version.outputs.deb_name }}-${{ matrix.rid }}
+          path: Calcpad.Cli/bin/Release/net10.0/${{ matrix.rid }}/*.deb
+
+  release:
+    if: needs.determine-version.outputs.is_release == 'true'
+    needs: [determine-version, build-windows, build-deb]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Windows installer
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.determine-version.outputs.installer_name }}
+          path: artifacts/
+
+      - name: Download Windows portable
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ needs.determine-version.outputs.portable_name }}
+          path: artifacts/
+
+      - name: Download .deb packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ${{ needs.determine-version.outputs.deb_name }}-*
+          path: artifacts/
+          merge-multiple: true
 
       - name: Create GitHub Release
-        if: steps.version.outputs.is_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          files: Calcpad.Wpf/Installer/Output/${{ steps.version.outputs.installer_name }}.exe
+          files: artifacts/*
           generate_release_notes: true
